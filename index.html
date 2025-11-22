@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saby Cell - Pusat Kuota Murah</title>
+    <style>
+        /* --- RESET & BASE STYLES --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #000000;
+            background-image: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        /* --- CONTAINER UTAMA (SIMULASI LAYAR HP) --- */
+        .mobile-container {
+            width: 100%;
+            max-width: 480px;
+            background-color: #121212;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER SECTION --- */
+        .header {
+            text-align: center;
+            padding: 30px 20px 20px 20px;
+            background: linear-gradient(180deg, #1f1f1f 0%, #121212 100%);
+            border-bottom: 2px dashed #333;
+        }
+
+        .brand-name {
+            font-size: 26px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493;
+            animation: glow 2s infinite alternate;
+        }
+
+        .tagline {
+            font-size: 12px;
+            color: #aaa;
+            letter-spacing: 1px;
+            background-color: #222;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 15px;
+            border: 1px solid #333;
+        }
+
+        /* --- DECORATION LINES --- */
+        .dots-separator {
+            text-align: center;
+            color: #333;
+            font-size: 10px;
+            letter-spacing: 3px;
+            margin: 15px 0;
+            opacity: 0.5;
+        }
+
+        /* --- SERVICE SECTION --- */
+        .content {
+            padding: 20px;
+            flex: 1;
+        }
+
+        .section-box {
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #2a2a2a;
+            position: relative;
+        }
+
+        .section-title {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ff69b4;
+            color: #000;
+            font-weight: bold;
+            font-size: 14px;
+            padding: 2px 15px;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            white-space: nowrap;
+        }
+
+        .service-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .service-list li {
+            padding: 12px 10px;
+            border-bottom: 1px solid #2a2a2a;
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            transition: background 0.2s;
+        }
+
+        .service-list li:last-child {
+            border-bottom: none;
+        }
+
+        .service-list li:hover {
+            background-color: #252525;
+            border-radius: 5px;
+        }
+
+        .icon-check {
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        /* --- CTA BUTTON (WHATSAPP) --- */
+        .cta-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .wa-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #25D366;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 15px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            width: 100%;
+            border: 2px solid #20b556;
+        }
+
+        .wa-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+            background-color: #20bd5a;
+        }
+
+        .wa-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .wa-number {
+            display: block;
+            margin-top: 10px;
+            color: #888;
+            font-size: 14px;
+            font-family: monospace;
+        }
+
+        /* --- CATALOG BUTTON --- */
+        .catalog-btn {
+            display: block;
+            margin-top: 15px;
+            padding: 12px;
+            background-color: transparent;
+            border: 1px dashed #555;
+            color: #ccc;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .catalog-btn:hover {
+            border-color: #ff69b4;
+            color: #ff69b4;
+        }
+
+        /* --- FOOTER --- */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 11px;
+            color: #555;
+            background-color: #0f0f0f;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #ff69b4, 0 0 10px #ff69b4;
+            }
+            to {
+                text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493, 0 0 30px #ff1493;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-container">
+        <!-- HEADER -->
+        <div class="header">
+            <div class="brand-name">💖 SABY CELL 💖</div>
+            <div class="dots-separator">•••••••••••••••••••••</div>
+            <div class="tagline">PULSA & PAKET DATA MURAH</div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="content">
+            
+            <!-- LAYANAN SECTION -->
+            <div class="section-box">
+                <div class="section-title">🤝 M E L A Y A N I 🤝</div>
+                <ul class="service-list">
+                    <li>
+                        <span class="icon-check">✅</span> 
+                        <div><strong>ISI PAKET DATA</strong> <br><span style="font-size:12px; color:#888;">All Provider (Tsel, Isat, XL, dll)</span></div>
+                    </li>
+                    <li>
+                        <span class="icon-check">✅</span> 
+                        <div><strong>ISI PULSA REGULER</strong> <br><span style="font-size:12px; color:#888;">Masuk cepat, harga bersahabat</span></div>
+                    </li>
+                    <li>
+                        <span class="icon-check">✅</span> 
+                        <div><strong>TOP UP E-WALLET</strong> <br><span style="font-size:12px; color:#888;">Dana, OVO, ShopeePay, GoPay</span></div>
+                    </li>
+                    <li>
+                        <span class="icon-check">✅</span> 
+                        <div><strong>TOP UP GAME</strong> <br><span style="font-size:12px; color:#888;">Mobile Legends, FreeFire, PUBG</span></div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="dots-separator">❌ ❌❌❌ ❌❌❌ ❌</div>
+
+            <!-- CONTACT SECTION -->
+            <div class="cta-container">
+                <div style="margin-bottom: 15px; font-weight: bold; color: #fff;">
+                    📞 CUSTOMER SERVICE
+                </div>
+                
+                <!-- TOMBOL WA -->
+                <a href="https://wa.me/6285117265708?text=Halo%20Saby%20Cell,%20saya%20mau%20order%20..." class="wa-button" target="_blank">
+                    <span class="wa-icon">📱</span>
+                    Chat WhatsApp
+                </a>
+                
+                <span class="wa-number">0851-1726-5708</span>
+
+                <!-- KATALOG -->
+                <a href="#" class="catalog-btn">
+                    📂 Lihat Daftar Harga Lengkap
+                </a>
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            &copy; 2024 Saby Cell.<br>
+            Amanah & Terpercaya.
+        </div>
+    </div>
+
+</body>
+</html>
