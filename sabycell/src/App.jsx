@@ -392,7 +392,7 @@ export default function App() {
               />
             </div>
             <div>
-              <div className="text-xl font-extrabold text-indigo-700 dark:text-indigo-400">TopPay</div>
+              <div className="text-xl font-extrabold text-indigo-700 dark:text-indigo-400">Sabycell</div>
               <div className="text-xs text-slate-500 hidden sm:block">Pulsa • Data • E-Money • Top up Game</div>
             </div>
           </div>
@@ -460,7 +460,7 @@ export default function App() {
       <footer className="mt-12 py-8 border-t-4 border-indigo-200 dark:border-indigo-900 bg-white dark:bg-slate-900">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between max-w-6xl mx-auto px-4">
           <div>
-            <div className="font-extrabold text-xl text-indigo-700 dark:text-indigo-400">TopPay</div>
+            <div className="font-extrabold text-xl text-indigo-700 dark:text-indigo-400">Sabycell</div>
             <div className="text-sm text-slate-500 dark:text-slate-400 mt-1">Layanan Top-Up Terpercaya.</div>
             <div className="text-xs text-slate-400 dark:text-slate-500 mt-3">© 2025 TopPay. Hak Cipta Dilindungi.</div>
           </div>
