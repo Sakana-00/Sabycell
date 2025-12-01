@@ -61,10 +61,10 @@ export default function App() {
   };
 
   const serviceImageUrls = {
-    pulsa: `/src/assets/pulsa2.webp`,
-    data: `/src/assets/data.webp`,
-    emoney: `/src/assets/emoney.webp`,
-    games: `/src/assets/topup.webp`,
+    pulsa: `/pulsa2.webp`,
+    data: `/data.webp`,
+    emoney: `/emoney.webp`,
+    games: `/topup.webp`,
   };
 
   const serviceTargets = {
@@ -210,7 +210,7 @@ export default function App() {
   // ----------------------------------------
 
   const targetIcons = {
-    'Telkomsel': '/src/assets/telkom.webp', 'Indosat': '/src/assets/indosat.webp', 'XL/Axis': '/src/assets/xl.webp', 'Smartfren': '/src/assets/smartfren.webp',
+    'Telkomsel': '/telkom.webp', 'Indosat': '/indosat.webp', 'XL/Axis': '/xl.webp', 'Smartfren': '/smartfren.webp',
     'DANA': '💸', 'OVO': '🟣', 'GoPay': '🟢', 'LinkAja': '🔵',
     'MLBB': '⚔️', 'PUBG': '🔫', 'Genshin Impact': '✨', 'Free Fire': '🎮'
   };
