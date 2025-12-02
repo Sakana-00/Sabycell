@@ -1,9 +1,36 @@
 import React, { useState } from "react";
+import Card from './components/Card';
+import Testi from './components/Testi';
+import TransactionForm from "./components/TransactionForm";
 
-// --- PENGGUNAAN ASSET DI VITE (LOKAL) ---
-const LOGO_URL = "/fafas.webp";
-const ICON_PLACEHOLDER_BASE = 'https://placehold.co/48x48';
+// --- Impor Aset Gambar ---
+// Pastikan gambar-gambar ini ada di dalam folder `src/assets/`
+// atau sesuaikan path-nya jika Anda menyimpannya di tempat lain di dalam `src`.
+import logoUrl from './assets/fafas.webp';
+import pulsaImg from './assets/pulsa2.webp';
+import dataImg from './assets/data.webp';
+import emoneyImg from './assets/emoney.webp';
+import gamesImg from './assets/topup.webp';
+import telkomImg from './assets/telkom.webp';
+import indosatImg from './assets/indosat.webp';
+import xlImg from './assets/xl.webp';
+import smartfrenImg from './assets/smartfren.webp';
+import danaImg from './assets/dana.webp';
+import ovoImg from './assets/ovo.webp';
+import gopayImg from './assets/gopay.webp';
+import shopepayImg from './assets/shopepay.webp';
+import mlbbImg from './assets/mlbb.webp';
+import pubgImg from './assets/pubg.webp';
+import genshinImg from './assets/genshin.webp';
+import ffImg from './assets/frefire.webp';
+import dahabuImg from './assets/dahabu.webp';
+import datagameImg from './assets/datagame.webp';
+import datasosmedImg from './assets/datasosmed.webp';
 
+
+
+// Data dan konstanta yang tidak berubah bisa diletakkan di luar komponen
+// (Ini adalah perbaikan dari saran sebelumnya, saya letakkan di sini agar lebih jelas)
 
 // Menggabungkan seluruh logika aplikasi ke dalam satu komponen utama bernama App
 export default function App() {
@@ -13,11 +40,10 @@ export default function App() {
   const [phone, setPhone] = useState("");
   const [operator, setOperator] = useState("");
   const [selected, setSelected] = useState(null);
-  const [email, setEmail] = useState("");
+  const [packageType, setPackageType] = useState(null); // 'harian' atau 'bulanan'
+  const [customAmount, setCustomAmount] = useState(""); // Untuk nominal e-money
+  const [note, setNote] = useState(""); // Menggantikan state email
   const [message, setMessage] = useState("");
-
-  // Catatan: Logika Dark Mode manual (isDarkMode state, toggleTheme, useEffect) telah dihapus.
-  // Aplikasi sekarang mengandalkan fitur 'dark:' bawaan Tailwind CSS yang otomatis mengikuti preferensi OS.
 
   // Nomor WA Anda dalam format internasional
   const YOUR_WHATSAPP_NUMBER = "6285117265708";
@@ -25,54 +51,244 @@ export default function App() {
   // Data Produk (Sama seperti sebelumnya)
   const allProducts = {
     pulsa: [
-      { id: "p1", label: "Rp 5.000", price: 5200, target: "Telkomsel" },
-      { id: "p2", label: "Rp 10.000", price: 10200, target: "Telkomsel" },
-      { id: "p3", label: "Rp 25.000", price: 25200, target: "Telkomsel" },
-      { id: "p4", label: "Rp 50.000", price: 50200, target: "Telkomsel" },
-
-      { id: "p5", label: "Rp 5.000", price: 5300, target: "Indosat" },
-      { id: "p6", label: "Rp 10.000", price: 10300, target: "Indosat" },
-      { id: "p7", label: "Rp 25.000", price: 25300, target: "Indosat" },
-
-      { id: "p8", label: "Rp 10.000", price: 10100, target: "XL/Axis" },
-      { id: "p9", label: "Rp 25.000", price: 25100, target: "XL/Axis" },
+      // Telkomsel
+      { id: "p1", label: "Rp 5.000", price: 8000, target: "Telkomsel" },
+      { id: "p2", label: "Rp 10.000", price: 13000, target: "Telkomsel" },
+      { id: "p3", label: "Rp 15.000", price: 18000, target: "Telkomsel" },
+      { id: "p4", label: "Rp 20.000", price: 23000, target: "Telkomsel" },
+      { id: "p5", label: "Rp 25.000", price: 28000, target: "Telkomsel" },
+      { id: "p6", label: "Rp 30.000", price: 33000, target: "Telkomsel" },
+      { id: "p7", label: "Rp 35.000", price: 38000, target: "Telkomsel" },
+      { id: "p8", label: "Rp 40.000", price: 43000, target: "Telkomsel" },
+      { id: "p9", label: "Rp 45.000", price: 48000, target: "Telkomsel" },
+      { id: "p10", label: "Rp 53.000", price: 53000, target: "Telkomsel" },
+      // Indosat
+      { id: "p11", label: "Rp 5.000", price: 8000, target: "Indosat" },
+      { id: "p12", label: "Rp 10.000", price: 13000, target: "Indosat" },
+      { id: "p13", label: "Rp 12.000", price: 15000, target: "Indosat" },
+      { id: "p14", label: "Rp 15.000", price: 18000, target: "Indosat" },
+      { id: "p15", label: "Rp 20.000", price: 23000, target: "Indosat" },
+      { id: "p16", label: "Rp 25.000", price: 28000, target: "Indosat" },
+      { id: "p17", label: "Rp 30.000", price: 33000, target: "Indosat" },
+      { id: "p18", label: "Rp 40.000", price: 43000, target: "Indosat" },
+      { id: "p19", label: "Rp 50.000", price: 53000, target: "Indosat" },
+      // XL/Axis
+      { id: "p20", label: "Rp 5.000", price: 8000, target: "XL/Axis" },
+      { id: "p21", label: "Rp 10.000", price: 13000, target: "XL/Axis" },
+      { id: "p22", label: "Rp 12.000", price: 15000, target: "XL/Axis" },
+      { id: "p23", label: "Rp 15.000", price: 18000, target: "XL/Axis" },
+      { id: "p24", label: "Rp 20.000", price: 23000, target: "XL/Axis" },
+      { id: "p25", label: "Rp 25.000", price: 28000, target: "XL/Axis" },
+      { id: "p26", label: "Rp 30.000", price: 33000, target: "XL/Axis" },
+      { id: "p27", label: "Rp 40.000", price: 43000, target: "XL/Axis" },
+      { id: "p28", label: "Rp 50.000", price: 53000, target: "XL/Axis" },
+      // Smartfren
+      { id: "p29", label: "Rp 5.000", price: 8000, target: "Smartfren" },
+      { id: "p30", label: "Rp 10.000", price: 13000, target: "Smartfren" },
+      { id: "p33", label: "Rp 15.000", price: 18000, target: "Smartfren" },
+      { id: "p34", label: "Rp 20.000", price: 23000, target: "Smartfren" },
+      { id: "p35", label: "Rp 25.000", price: 28000, target: "Smartfren" },
+      { id: "p36", label: "Rp 30.000", price: 33000, target: "Smartfren" },
+      { id: "p37", label: "Rp 35.000", price: 38000, target: "Smartfren" },
+      { id: "p38", label: "Rp 40.000", price: 43000, target: "Smartfren" },
+      { id: "p39", label: "Rp 45.000", price: 48000, target: "Smartfren" },
+      { id: "p40", label: "Rp 53.000", price: 53000, target: "Smartfren" },
     ],
+
     data: [
-      { id: "d1", label: "1 GB (24 jam)", price: 8000, target: "Telkomsel" },
-      { id: "d2", label: "3 GB (7 hari)", price: 20000, target: "Telkomsel" },
-      { id: "d3", label: "1 GB (24 jam)", price: 7500, target: "Indosat" },
-      { id: "d4", label: "10 GB (30 hari)", price: 65000, target: "Indosat" },
-      { id: "d5", label: "5 GB (30 hari)", price: 35000, target: "XL/Axis" },
+
+      // Telkomsel
+      { id: "d1", label: "1GB 1 HARI", price: 8000, target: "Telkomsel", type: "harian" },
+      { id: "d2", label: "3GB 1 HARI", price: 14000, target: "Telkomsel", type: "harian" },
+      { id: "d3", label: "6GB 1 HARI", price: 24000, target: "Telkomsel", type: "harian" },
+      { id: "d4", label: "1GB 3 HARI", price: 11000, target: "Telkomsel", type: "harian" },
+      { id: "d5", label: "2GB 3 HARI", price: 14000, target: "Telkomsel", type: "harian" },
+      { id: "d6", label: "3GB 3 HARI", price: 28000, target: "Telkomsel", type: "harian" },
+      { id: "d7", label: "1GB 7 HARI", price: 14000, target: "Telkomsel", type: "harian" },
+      { id: "d8", label: "3GB 7 HARI", price: 24000, target: "Telkomsel", type: "harian" },
+      { id: "d9", label: "5GB 7 HARI", price: 28000, target: "Telkomsel", type: "harian" },
+
+      { id: "d13", label: "1GB 30 HARI", price: 14000, target: "Telkomsel", type: "bulanan" },
+      { id: "d14", label: "2GB 30 HARI", price: 24000, target: "Telkomsel", type: "bulanan" },
+      { id: "d15", label: "3GB 30 HARI", price: 26000, target: "Telkomsel", type: "bulanan" },
+      { id: "d16", label: "5GB 30 HARI", price: 38000, target: "Telkomsel", type: "bulanan" },
+      { id: "d17", label: "6GB 30 HARI", price: 44000, target: "Telkomsel", type: "bulanan" },
+      { id: "d18", label: "7GB 30 HARI", price: 48000, target: "Telkomsel", type: "bulanan" },
+      { id: "d19", label: "8GB 30 HARI", price: 52000, target: "Telkomsel", type: "bulanan" },
+
+      // Indosat
+      { id: "di1", label: "1.5GB 1 HARI", price: 8000, target: "Indosat", type: "harian" },
+      { id: "di2", label: "2GB 1 HARI", price: 9000, target: "Indosat", type: "harian" },
+      { id: "di3", label: "3GB 1 HARI", price: 10000, target: "Indosat", type: "harian" },
+      { id: "di4", label: "5GB 1 HARI", price: 11000, target: "Indosat", type: "harian" },
+      { id: "di5", label: "1GB 2 HARI", price: 8000, target: "Indosat", type: "harian" },
+      { id: "di6", label: "15GB 3 HARI", price: 30000, target: "Indosat", type: "harian" },
+      { id: "di7", label: "8GB 4 HARI", price: 20000, target: "Indosat", type: "harian" },
+      { id: "di8", label: "1.5GB 5 HARI", price: 10000, target: "Indosat", type: "harian" },
+      { id: "di9", label: "2GB 5 HARI", price: 14000, target: "Indosat", type: "harian" },
+      { id: "di10", label: "2.5GB 5 HARI", price: 15000, target: "Indosat", type: "harian" },
+      { id: "di11", label: "3GB 5 HARI", price: 16000, target: "Indosat", type: "harian" },
+      { id: "di12", label: "3.5GB 5 HARI", price: 17000, target: "Indosat", type: "harian" },
+      { id: "di13", label: "4GB 5 HARI", price: 18000, target: "Indosat", type: "harian" },
+      { id: "di14", label: "5GB 5 HARI", price: 20000, target: "Indosat", type: "harian" },
+      { id: "di15", label: "8GB 5 HARI", price: 26000, target: "Indosat", type: "harian" },
+      { id: "di16", label: "9GB 5 HARI", price: 34000, target: "Indosat", type: "harian" },
+      { id: "di17", label: "10GB 5 HARI", price: 35000, target: "Indosat", type: "harian" },
+      { id: "di18", label: "1GB 7 HARI", price: 7000, target: "Indosat", type: "harian" },
+      { id: "di19", label: "3GB 7 HARI", price: 15000, target: "Indosat", type: "harian" },
+      { id: "di20", label: "5GB 7 HARI", price: 16000, target: "Indosat", type: "harian" },
+      { id: "di21", label: "7GB 7 HARI", price: 26000, target: "Indosat", type: "harian" },
+      { id: "di22", label: "12GB 7 HARI", price: 35000, target: "Indosat", type: "harian" },
+      { id: "di23", label: "15GB 7 HARI", price: 31000, target: "Indosat", type: "harian" },
+      { id: "di24", label: "2GB 15 HARI", price: 23000, target: "Indosat", type: "harian" },
+
+      { id: "di25", label: "3GB 30 HARI", price: 20000, target: "Indosat", type: "bulanan" },
+      { id: "di26", label: "4GB 30 HARI", price: 25000, target: "Indosat", type: "bulanan" },
+      { id: "di27", label: "5GB 30 HARI", price: 30000, target: "Indosat", type: "bulanan" },
+      { id: "di28", label: "6GB 30 HARI", price: 34000, target: "Indosat", type: "bulanan" },
+      { id: "di29", label: "7GB 30 HARI", price: 40000, target: "Indosat", type: "bulanan" },
+      { id: "di30", label: "8GB 30 HARI", price: 44000, target: "Indosat", type: "bulanan" },
+      { id: "di31", label: "9GB 30 HARI", price: 49000, target: "Indosat", type: "bulanan" },
+      { id: "di32", label: "10GB 30 HARI", price: 57000, target: "Indosat", type: "bulanan" },
+
+      // XL/Axis
+      { id: "d12", label: "2GB + 500MB APPS 30 hari", price: 17000, target: "XL/Axis", type: "bulanan" },
+      { id: "d13", label: "3GB + 500MB APPS 30 hari", price: 25000, target: "XL/Axis", type: "bulanan" },
+      { id: "d14", label: "6GB 28 hari", price: 30000, target: "XL/Axis", type: "bulanan" },
+      { id: "d15", label: "10GB 28 hari", price: 36000, target: "XL/Axis", type: "bulanan" },
+      { id: "d16", label: "15GB 28 hari", price: 40000, target: "XL/Axis", type: "bulanan" },
+      { id: "d17", label: "20GB 28 hari", price: 50000, target: "XL/Axis", type: "bulanan" },
+
+      { id: "d3", label: "2GB-3GB 3 HARI", price: 11000, target: "XL/Axis", type: "harian" },
+      { id: "d4", label: "5GB-7GB 3 HARI", price: 15000, target: "XL/Axis", type: "harian" },
+      { id: "d5", label: "2.5GB-4GB 5 HARI", price: 14000, target: "XL/Axis", type: "harian" },
+      { id: "d6", label: "3.5GB-5.5GB 5 HARI", price: 16000, target: "XL/Axis", type: "harian" },
+      { id: "d7", label: "6GB-9GB 5 HARI", price: 20000, target: "XL/Axis", type: "harian" },
+      { id: "d8", label: "2.5GB-3.5GB 7 HARI", price: 15000, target: "XL/Axis", type: "harian" },
+      { id: "d9", label: "3.5GB-5GB 7 HARI", price: 18000, target: "XL/Axis", type: "harian" },
+      { id: "d10", label: "5GB-8GB 7 HARI", price: 22000, target: "XL/Axis", type: "harian" },
+      { id: "d10", label: "7GB-12GB 7 HARI", price: 27000, target: "XL/Axis", type: "harian" },
+
+      { id: "dxg1", label: "1GB Game 30 Hari", price: 7000, target: "XL/Axis", type: "game" },
+      { id: "dxg2", label: "2GB Game 30 Hari", price: 12000, target: "XL/Axis", type: "game" },
+      { id: "dxg3", label: "500MB Utama + 500MB Game 30 Hari", price: 8000, target: "XL/Axis", type: "game" },
+      { id: "dxg4", label: "1GB Utama + 1GB Game 30 Hari", price: 14000, target: "XL/Axis", type: "game" },
+      { id: "dxg5", label: "1.5GB Utama + 1.5GB Game 30 Hari", price: 18000, target: "XL/Axis", type: "game" },
+      { id: "dxg6", label: "2GB Utama + 2GB Game 30 Hari", price: 24000, target: "XL/Axis", type: "game" },
+      { id: "dxg7", label: "3GB Utama + 3GB Game 30 Hari", price: 32000, target: "XL/Axis", type: "game" },
+      { id: "dxg8", label: "4GB Utama + 4GB Game 30 Hari", price: 42000, target: "XL/Axis", type: "game" },
+
+      // Smartfren
+      { id: "d20", label: "1GB 3 HARI", price: 8000, target: "Smartfren", type: "harian" },
+      { id: "d21", label: "2GB 3 HARI", price: 10000, target: "Smartfren", type: "harian" },
+      { id: "d22", label: "3GB 5 HARI", price: 15000, target: "Smartfren", type: "harian" },
+
+      { id: "d23", label: "DATA 3GB+4GB MLM+3GB CHAT 30 HARI", price: 22000, target: "Smartfren", type: "bulanan" },
+      { id: "d24", label: "DATA 6GB+10GB MLM+6GB CHAT 30 HARI", price: 28000, target: "Smartfren", type: "bulanan" },
+      { id: "d25", label: "DATA 10GB+20GB MLM 30 HARI", price: 70000, target: "Smartfren", type: "bulanan" },
+
+      { id: "dtk1", label: "1.1GB Tiktok 1 HARI", price: 8000, target: "Smartfren", type: "media" },
+      { id: "dtk2", label: "3.5GB Tiktok 3 HARI", price: 12000, target: "Smartfren", type: "media" },
+      { id: "dtk3", label: "8GB Tiktok 7 HARI", price: 19000, target: "Smartfren", type: "media" },
+      { id: "dty1", label: "1.1GB YouTube 1 HARI", price: 8000, target: "Smartfren", type: "media" },
+      { id: "dty2", label: "3.5GB YouTube 3 HARI", price: 12000, target: "Smartfren", type: "media" },
+      { id: "dty3", label: "8GB YouTube 7 HARI", price: 19000, target: "Smartfren", type: "media" },
+
     ],
     emoney: [
-      { id: "e1", label: "Rp 50.000", price: 50500, target: "DANA" },
-      { id: "e2", label: "Rp 100.000", price: 100500, target: "DANA" },
-      { id: "e3", label: "Rp 50.000", price: 51000, target: "OVO" },
-      { id: "e4", label: "Rp 100.000", price: 101000, target: "OVO" },
-      { id: "e5", label: "Rp 50.000", price: 50700, target: "GoPay" },
+      // Dikosongkan karena akan menggunakan input nominal bebas
     ],
     games: [
-      { id: "g1", label: "Diamond 50", price: 12000, target: "MLBB" },
-      { id: "g2", label: "Diamond 100", price: 24000, target: "MLBB" },
-      { id: "g3", label: "UC 80", price: 25000, target: "PUBG" },
-      { id: "g4", label: "Genesis Crystal 300", price: 75000, target: "Genshin Impact" },
-      { id: "g5", label: "Voucher 100k", price: 100000, target: "Free Fire" },
+
+
+      // MLBB
+      { id: "g1", label: "5 Diamond", price: 3500, target: "MLBB" },
+      { id: "g5", label: "28 Diamond", price: 9000, target: "MLBB" },
+      { id: "g8", label: "44 Diamond", price: 13000, target: "MLBB" },
+      { id: "g11", label: "82 Diamond", price: 25000, target: "MLBB" },
+      { id: "g12", label: "86 Diamond", price: 26000, target: "MLBB" },
+      { id: "g13", label: "170 Diamond", price: 52000, target: "MLBB" },
+      { id: "g18", label: "257 Diamond", price: 78000, target: "MLBB" },
+      { id: "g20", label: "344 Diamond", price: 105000, target: "MLBB" },
+      { id: "g24", label: "514 Diamond", price: 155000, target: "MLBB" },
+      { id: "g28", label: "706 Diamond", price: 210000, target: "MLBB" },
+      { id: "g29", label: "875 Diamond", price: 255000, target: "MLBB" },
+
+      // Free Fire
+      { id: "g34", label: "5 Diamond", price: 2000, target: "Free Fire" },
+      { id: "g35", label: "12 Diamond", price: 3500, target: "Free Fire" },
+      { id: "g36", label: "20 Diamond", price: 4500, target: "Free Fire" },
+      { id: "g37", label: "30 Diamond", price: 7000, target: "Free Fire" },
+      { id: "g38", label: "50 Diamond", price: 8000, target: "Free Fire" },
+      { id: "g39", label: "70 Diamond", price: 12000, target: "Free Fire" },
+      { id: "g40", label: "100 Diamond", price: 15000, target: "Free Fire" },
+      { id: "g41", label: "140 Diamond", price: 20000, target: "Free Fire" },
+      { id: "g42", label: "200 Diamond", price: 29000, target: "Free Fire" },
+      { id: "g43", label: "280 Diamond", price: 39000, target: "Free Fire" },
+      { id: "g44", label: "360 Diamond", price: 50000, target: "Free Fire" },
+      { id: "g45", label: "500 Diamond", price: 69000, target: "Free Fire" },
+      { id: "g46", label: "720 Diamond", price: 96000, target: "Free Fire" },
+      { id: "g47", label: "1000 Diamond", price: 132000, target: "Free Fire" },
+      { id: "g48", label: "1440 Diamond", price: 187000, target: "Free Fire" },
+
+      // Genshin Impact
+      { id: "g1", label: "60 Genesis Crystal", price: 14000, target: "Genshin Impact" },
+      { id: "g2", label: "330 Genesis Crystal", price: 62000, target: "Genshin Impact" },
+      { id: "g3", label: "1090 Genesis Crystal", price: 182000, target: "Genshin Impact" },
+      { id: "g4", label: "2240 Genesis Crystal", price: 390000, target: "Genshin Impact" },
+      { id: "g5", label: "3880 Genesis Crystal", price: 600000, target: "Genshin Impact" },
+      { id: "g6", label: "8080 Genesis Crystal", price: 1197000, target: "Genshin Impact" },
+
+      { id: "p1", label: "60 UC", price: 18000, target: "PUBG" },
+      { id: "p2", label: "180 UC", price: 47000, target: "PUBG" },
+      { id: "p3", label: "325 UC", price: 77000, target: "PUBG" },
+      { id: "p4", label: "445 UC", price: 108000, target: "PUBG" },
+      { id: "p5", label: "660 UC", price: 150000, target: "PUBG" },
+      { id: "p6", label: "840 UC", price: 197000, target: "PUBG" },
+      { id: "p7", label: "1105 UC", price: 256000, target: "PUBG" },
+      { id: "p8", label: "1320 UC", price: 300000, target: "PUBG" },
+      { id: "p9", label: "1500 UC", price: 340000, target: "PUBG" },
+      { id: "p10", label: "1800 UC", price: 370000, target: "PUBG" },
+      { id: "p11", label: "1980 UC", price: 420000, target: "PUBG" },
+      { id: "p12", label: "2125 UC", price: 450000, target: "PUBG" },
+      { id: "p13", label: "2460 UC", price: 518000, target: "PUBG" },
+      { id: "p14", label: "2785 UC", price: 596000, target: "PUBG" },
     ],
   };
 
   const serviceImageUrls = {
-    pulsa: `/pulsa2.webp`,
-    data: `/data.webp`,
-    emoney: `/emoney.webp`,
-    games: `/topup.webp`,
+    pulsa: pulsaImg,
+    data: dataImg,
+    emoney: emoneyImg,
+    games: gamesImg,
+    dana: danaImg,
+    ovo: ovoImg,
+    gopay: gopayImg,
+    shopepay: shopepayImg,
+    mlbb: mlbbImg,
+    pubg: pubgImg,
+    genshin: genshinImg,
+    frefire: ffImg,
+    dahabu: dahabuImg,
+    datagame: datagameImg,
+    datasosmed: datasosmedImg,
   };
 
   const serviceTargets = {
     pulsa: ['Telkomsel', 'Indosat', 'XL/Axis', 'Smartfren'],
     data: ['Telkomsel', 'Indosat', 'XL/Axis', 'Smartfren'],
-    emoney: ['DANA', 'OVO', 'GoPay', 'LinkAja'],
+    emoney: ['DANA', 'OVO', 'GoPay', 'ShopePay'],
     games: ['MLBB', 'PUBG', 'Genshin Impact', 'Free Fire'],
   };
+
+  const targetIcons = {
+    'Telkomsel': telkomImg, 'Indosat': indosatImg, 'XL/Axis': xlImg, 'Smartfren': smartfrenImg,
+    'DANA': danaImg, 'OVO': ovoImg, 'GoPay': gopayImg, 'ShopePay': shopepayImg,
+    'MLBB': mlbbImg, 'PUBG': pubgImg, 'Genshin Impact': genshinImg, 'Free Fire': ffImg,
+  };
+
+  // Catatan: Logika Dark Mode manual (isDarkMode state, toggleTheme, useEffect) telah dihapus.
+  // Aplikasi sekarang mengandalkan fitur 'dark:' bawaan Tailwind CSS yang otomatis mengikuti preferensi OS.
 
   function priceFormatted(p) {
     return p.toLocaleString("id-ID");
@@ -99,18 +315,30 @@ export default function App() {
     setTarget(null);
     setSelected(null);
     setPhone('');
+    setPackageType(null); // Ini sudah ada, saya pastikan tidak duplikat
+    setCustomAmount("");
     setOperator('');
   };
 
   const handleTargetChange = (newTarget) => {
     setTarget(newTarget);
     setSelected(null);
+    setPackageType(null);
+    setCustomAmount("");
     if (service === 'pulsa' || service === 'data') {
       setOperator(newTarget);
     }
   };
 
-  const currentProducts = allProducts[service]?.filter(p => p.target === target) || [];
+  const handlePackageTypeChange = (type) => {
+    setPackageType(type);
+    setSelected(null);
+  };
+
+  const currentProducts = allProducts[service]?.filter(p => {
+    if (service === 'data') return p.target === target && p.type === packageType;
+    return p.target === target;
+  }) || [];
 
   const getLabelText = () => {
     if (service === 'pulsa' || service === 'data') return "Nomor Handphone Tujuan";
@@ -119,16 +347,36 @@ export default function App() {
   };
 
   const getPlaceholderText = () => {
-    if (service === 'pulsa' || service === 'data') return "Contoh: 08123456789";
-    if (service === 'emoney') return "Contoh: 0812xxxxxx (Nomor Akun DANA/OVO/GoPay)";
+    if (service === 'pulsa' || service === 'data') return "Contoh: 0812xxxxxx";
+    if (service === 'emoney') return "Contoh: 0812xxxxxx";
+    if (service === 'games' && target === 'MLBB') return "Contoh: 123456789(Server ID)";
     return "Contoh: 1234567 (User ID)";
   };
 
   async function onBuy(e) {
     e.preventDefault();
 
-    if (!selected) {
-      setMessage("Pilih nominal terlebih dahulu.");
+    let finalSelected = selected;
+    const ADMIN_FEE = 2000;
+
+    if (service === 'emoney') {
+      const amount = parseInt(customAmount);
+      if (!amount || amount < 1000) {
+        setMessage("Masukkan nominal minimal Rp 1.000.");
+        return;
+      }
+      finalSelected = {
+        label: `Top Up Rp ${priceFormatted(amount)}`,
+        price: amount + ADMIN_FEE,
+      };
+    }
+
+    if (!finalSelected) {
+      if (service === 'emoney') {
+        setMessage("Masukkan nominal terlebih dahulu.");
+      } else {
+        setMessage("Pilih produk terlebih dahulu.");
+      }
       return;
     }
 
@@ -138,17 +386,20 @@ export default function App() {
     }
 
     const serviceName = service.charAt(0).toUpperCase() + service.slice(1).replace('emoney', 'E-Money').replace('pulsa', 'Pulsa').replace('data', 'Paket Data').replace('games', 'Top Up Game');
-    const itemDetail = selected.label;
-    const cost = priceFormatted(selected.price);
+    const itemDetail = finalSelected.label;
+    const cost = priceFormatted(finalSelected.price);
 
-    let textMessage = `*PESANAN BARU VIA WEBSITE TOP-UP*\n\n`;
+    let textMessage = `*PESANAN BARU VIA WEBSITE Sabycell*\n\n`;
     textMessage += `Kategori: ${serviceName}\n`;
     textMessage += `Target: ${target}\n`;
     textMessage += `Produk: ${itemDetail} (Rp ${cost})\n`;
     textMessage += `${getLabelText()}: ${phone}\n`;
 
-    if (email) {
-      textMessage += `Email/Catatan: ${email}\n`;
+    if (note) {
+      textMessage += `Catatan: ${note}\n`;
+    }
+    if (service === 'emoney') {
+      textMessage += `Biaya Admin: Rp ${priceFormatted(ADMIN_FEE)}\n`;
     }
 
     textMessage += `\n*Total Harga: Rp ${cost}*\n`;
@@ -161,59 +412,9 @@ export default function App() {
 
     setTimeout(() => {
       window.open(whatsappLink, '_blank');
-      setMessage("Pesanan Anda sudah dibuat. Silakan selesaikan transaksi di WhatsApp.");
+      setMessage("Pesanan Anda sudah dibuat. Mohon tunggu admin merespone.");
     }, 500);
   }
-
-  // --- Komponen Pembantu Card & Testi ---
-  function Card({ title, subtitle, icon, onClick, isActive = false }) {
-    const isImageUrl = icon && (icon.startsWith('http') || icon.startsWith('data:image') || icon.startsWith('/') || icon.startsWith('./'));
-    const iconContent = isImageUrl ? (
-      <img
-        src={icon}
-        alt={title}
-        className="w-full h-full object-cover rounded-lg"
-        onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/48x48/6366F1/FFFFFF?text=X'; }}
-      />
-    ) : (
-      icon || title[0]
-    );
-
-    return (
-      <button
-        className={`p-4 rounded-xl shadow-md transition duration-200 flex items-center gap-3 w-full text-left 
-          ${isActive
-            ? 'bg-indigo-50 border-2 border-indigo-600 dark:bg-slate-700 dark:border-indigo-400'
-            : 'bg-white dark:bg-slate-800 border-2 border-transparent hover:shadow-lg dark:hover:bg-slate-700'}`
-        }
-        onClick={onClick}
-      >
-        <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xl font-bold shadow-md overflow-hidden">
-          {iconContent}
-        </div>
-        <div className="text-slate-800 dark:text-slate-200">
-          <div className="font-medium">{title}</div>
-          <div className="text-sm text-slate-500 dark:text-slate-400">{subtitle}</div>
-        </div>
-      </button>
-    );
-  }
-
-  function Testi({ name, text }) {
-    return (
-      <div className="p-4 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700">
-        <div className="text-sm italic text-slate-700 dark:text-slate-300">"{text}"</div>
-        <div className="mt-3 text-xs text-slate-500 dark:text-slate-400 font-semibold">— {name}</div>
-      </div>
-    );
-  }
-  // ----------------------------------------
-
-  const targetIcons = {
-    'Telkomsel': '/telkom.webp', 'Indosat': '/indosat.webp', 'XL/Axis': '/xl.webp', 'Smartfren': '/smartfren.webp',
-    'DANA': '💸', 'OVO': '🟣', 'GoPay': '🟢', 'LinkAja': '🔵',
-    'MLBB': '⚔️', 'PUBG': '🔫', 'Genshin Impact': '✨', 'Free Fire': '🎮'
-  };
 
 
   // --- Render Sub-Menu / Target Selection ---
@@ -230,7 +431,7 @@ export default function App() {
       </h2>
       <p className="text-sm mb-6 text-slate-600 dark:text-slate-400">Layanan Aktif: <span className="font-extrabold text-purple-600 capitalize">{service.replace('emoney', 'E-Money').replace('pulsa', 'Pulsa').replace('data', 'Paket Data').replace('games', 'Top Up Game')}</span></p>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         {serviceTargets[service].map((t) => (
           <Card
             key={t}
@@ -245,148 +446,65 @@ export default function App() {
     </div>
   );
 
-  // --- Render Form Transaksi & Produk ---
-  const TransactionForm = () => (
-    <div className="lg:col-span-2 p-6 sm:p-8 rounded-2xl shadow-2xl bg-white dark:bg-slate-900 border-t-4 border-indigo-500">
-      <h1 className="text-2xl font-extrabold text-indigo-800 dark:text-indigo-400 mb-2">
+  // --- Render Sub-Menu / Package Type Selection (khusus untuk data) ---
+  const PackageTypeSelectionGrid = () => (
+    <div className="p-6 sm:p-8 rounded-2xl shadow-2xl bg-white dark:bg-slate-900 border-t-4 border-purple-500">
+      <h2 className="text-xl font-extrabold text-purple-800 dark:text-purple-400 mb-2">
         <button
-          onClick={() => setTarget(null)}
-          className="text-indigo-500 hover:text-indigo-700 mr-2 transition text-lg"
+          onClick={() => handleTargetChange(null)}
+          className="text-indigo-500 hover:text-indigo-700 mr-2 transition"
         >
           <i className="fas fa-arrow-left"></i>
         </button>
-        Detail Pembelian ({target})
-      </h1>
-      <p className={`text-sm mb-6 font-medium text-slate-600 dark:text-slate-400`}>
-        Kategori: <span className="font-extrabold text-indigo-600 capitalize">{service.replace('emoney', 'E-Money').replace('pulsa', 'Pulsa').replace('data', 'Paket Data').replace('games', 'Top Up Game')}</span> | Target: <span className="font-extrabold text-indigo-600">{target}</span>
-      </p>
+        Pilih Jenis Paket Data
+      </h2>
+      <p className="text-sm mb-6 text-slate-600 dark:text-slate-400">Provider: <span className="font-extrabold text-purple-600">{target}</span></p>
 
-      <form onSubmit={onBuy} className="space-y-6">
-
-        {/* Input Nomor/ID */}
-        <div>
-          <label htmlFor="phone" className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1">
-            {getLabelText()}
-          </label>
-          <input
-            id="phone"
-            type="text"
-            inputMode="numeric"
-            className="w-full rounded-xl border-2 border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 focus:border-indigo-500 focus:ring-indigo-500 px-4 py-3 transition shadow-inner"
-            placeholder={getPlaceholderText()}
-            value={phone}
-            onChange={(e) => onPhoneChange(e.target.value.replace(/[^0-9]/g, ''))}
-            required
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <Card
+          title="Paket Harian"
+          subtitle="Masa aktif singkat"
+          icon={dahabuImg}
+          onClick={() => handlePackageTypeChange('harian')}
+        />
+        <Card
+          title="Paket Bulanan"
+          subtitle="Masa aktif 30 hari"
+          icon={dahabuImg}
+          onClick={() => handlePackageTypeChange('bulanan')}
+        />
+        {target === 'XL/Axis' && (
+          <Card
+            title="Kuota Game"
+            subtitle="Games FF, MLBB, PUBG, dan AOV"
+            icon={datagameImg}
+            onClick={() => handlePackageTypeChange('game')}
           />
-          {(service === 'pulsa' || service === 'data') && phone && (
-            <div className="text-xs mt-2 p-2 rounded bg-indigo-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-indigo-100 dark:border-slate-700">
-              {operator !== target
-                ? <span className="text-red-600 font-bold">⚠️ Operator tidak sesuai dengan target yang dipilih ({target})</span>
-                : `Deteksi Operator: ${operator}`
-              }
-            </div>
-          )}
-        </div>
-
-        {/* Daftar Produk */}
-        <div>
-          <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Pilih Nominal / Produk</label>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            {currentProducts.length > 0 ? (
-              currentProducts.map((p) => (
-                <button
-                  key={p.id}
-                  type="button"
-                  onClick={() => setSelected(p)}
-                  className={`text-left p-4 rounded-xl border-2 transition duration-150 shadow-sm
-                    ${selected?.id === p.id
-                      ? "border-indigo-600 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-800 dark:text-indigo-300 ring-2 ring-indigo-300 dark:ring-indigo-700"
-                      : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-indigo-400 hover:bg-slate-50 dark:hover:bg-slate-700"
-                    }`}
-                >
-                  <div className="text-base font-bold text-slate-800 dark:text-slate-200">{p.label}</div>
-                  <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">
-                    Harga: <span className="font-extrabold text-green-700 dark:text-green-500">Rp {priceFormatted(p.price)}</span>
-                  </div>
-                </button>
-              ))
-            ) : (
-              <div className="col-span-full p-4 text-center bg-yellow-100 dark:bg-yellow-900/50 rounded-lg text-yellow-800 dark:text-yellow-300">
-                Produk untuk **{target}** saat ini tidak tersedia. Silakan pilih target lain.
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Input Email/Catatan (Opsional) */}
-        <div>
-          <label htmlFor="email" className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1">
-            Catatan Tambahan (Opsional)
-          </label>
-          <input
-            id="email"
-            type="text"
-            className="w-full rounded-xl border-2 border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 focus:border-indigo-500 focus:ring-indigo-500 px-4 py-3 transition shadow-inner"
-            placeholder="Contoh: ID Customer / Catatan untuk Admin"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-
-        {/* Tombol Beli & Total Harga */}
-        <div className="pt-4 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="text-base font-bold text-slate-800 dark:text-slate-200 md:w-1/2 w-full">
-            Total Bayar: <br className="md:hidden" />
-            <span className="text-3xl font-extrabold text-red-600 dark:text-red-400 ml-1">Rp {priceFormatted(selected?.price || 0)}</span>
-          </div>
-          <button
-            type="submit"
-            disabled={!selected || !phone}
-            className={`md:w-1/2 w-full px-6 py-3 rounded-full font-extrabold text-lg transition duration-200 shadow-xl 
-              ${!selected || !phone
-                ? "bg-slate-300 text-slate-500 dark:bg-slate-700 dark:text-slate-400 cursor-not-allowed"
-                : "bg-green-600 hover:bg-green-700 text-white shadow-green-500/50 transform hover:scale-[1.02]"
-              }`}
-          >
-            <i className="fab fa-whatsapp mr-2"></i> Konfirmasi & Bayar
-          </button>
-        </div>
-
-        {/* Message Box */}
-        {message && (
-          <div className={`text-sm p-4 rounded-xl mt-4 border font-medium transition duration-300 
-            ${message.includes('selesai')
-              ? 'bg-green-100 text-green-800 border-green-300 dark:bg-green-900/50 dark:text-green-300 dark:border-green-800'
-              : 'bg-indigo-100 text-indigo-800 border-indigo-300 dark:bg-indigo-900/50 dark:text-indigo-300 dark:border-indigo-800 animate-pulse'}`}>
-            {message}
-          </div>
         )}
 
-        <div className="mt-6 text-xs text-slate-500 dark:text-slate-400 border-t dark:border-slate-700 pt-4">
-          *Pastikan {getLabelText()} dan Target ({target}) sudah benar.
-        </div>
-      </form>
+        {target === 'Smartfren' && (
+          <Card
+            title="Kuota Sosmed"
+            subtitle="streaming Tiktok dan YouTube"
+            icon={datasosmedImg}
+            onClick={() => handlePackageTypeChange('media')}
+          />
+        )}
+      </div>
     </div>
   );
-
 
   // Render utama
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900 text-slate-800 dark:text-slate-200 font-sans">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
-        .font-sans { font-family: 'Inter', sans-serif; }
-      `}</style>
-
       {/* Header */}
       <header className="sticky top-0 z-10 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm shadow-md dark:shadow-slate-800">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-700 flex items-center justify-center shadow-lg overflow-hidden">
               <img
-                src="/fafas.webp"
-                alt="TopPay Logo"
+                src={logoUrl}
+                alt="Sabycell Logo"
                 className="w-full h-full object-contain"
                 onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/40x40/4F46E5/FFFFFF?text=TP'; }}
               />
@@ -413,11 +531,11 @@ export default function App() {
         {/* Kategori Produk */}
         <section className="mb-12">
           <h3 className="text-2xl font-extrabold mb-6 text-center text-indigo-800 dark:text-indigo-400">Pilih Kategori Layanan</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Card title="Pulsa" subtitle="Isi ulang instan" icon={serviceImageUrls.pulsa} onClick={() => handleServiceChange('pulsa')} isActive={service === 'pulsa'} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <Card title="Pulsa" subtitle="Isi ulang Pulsa" icon={serviceImageUrls.pulsa} onClick={() => handleServiceChange('pulsa')} isActive={service === 'pulsa'} />
             <Card title="Paket Data" subtitle="Internet harian/bulanan" icon={serviceImageUrls.data} onClick={() => handleServiceChange('data')} isActive={service === 'data'} />
-            <Card title="E-Money" subtitle="Dana, Ovo, GoPay" icon={serviceImageUrls.emoney} onClick={() => handleServiceChange('emoney')} isActive={service === 'emoney'} />
-            <Card title="Top Up Game" subtitle="Diamond, UC, Voucher" icon={serviceImageUrls.games} onClick={() => handleServiceChange('games')} isActive={service === 'games'} />
+            <Card title="E-Money" subtitle="Dana, Ovo, GoPay, ShopePay" icon={serviceImageUrls.emoney} onClick={() => handleServiceChange('emoney')} isActive={service === 'emoney'} />
+            <Card title="Top Up Game" subtitle="Diamond, UC, Genesis Crystal" icon={serviceImageUrls.games} onClick={() => handleServiceChange('games')} isActive={service === 'games'} />
           </div>
         </section>
 
@@ -425,18 +543,40 @@ export default function App() {
         <section className="grid lg:grid-cols-3 gap-8 py-4">
 
           {/* Kolom Kiri: Target Selection / Transaction Form */}
-          {target === null ? (
+          {target === null ? ( // 1. Jika target (provider) belum dipilih
             <div className="lg:col-span-3">
               <TargetSelectionGrid />
             </div>
+          ) : service === 'data' && packageType === null ? ( // 2. Jika layanan adalah 'data' dan jenis paket belum dipilih
+            <div className="lg:col-span-3"><PackageTypeSelectionGrid /></div>
           ) : (
             <>
               {/* Form Tampil jika Target sudah dipilih */}
-              <TransactionForm />
+              <TransactionForm
+                target={target}
+                service={service}
+                phone={phone}
+                note={note}
+                selected={selected}
+                operator={operator}
+                message={message}
+                currentProducts={currentProducts}
+                onBuy={onBuy}
+                onPhoneChange={onPhoneChange}
+                setNote={setNote}
+                setSelected={setSelected}
+                customAmount={customAmount}
+                setCustomAmount={setCustomAmount}
+                setTarget={setTarget}
+                setPackageType={setPackageType}
+                getLabelText={getLabelText}
+                getPlaceholderText={getPlaceholderText}
+                priceFormatted={priceFormatted}
+              />
 
               {/* Keunggulan & Info - Kolom Kanan */}
               <div className="lg:col-span-1 p-6 sm:p-8 rounded-2xl shadow-2xl bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-slate-800 dark:to-slate-800 space-y-6 self-start">
-                <h2 className="text-2xl font-extrabold text-indigo-700 dark:text-indigo-400 border-b pb-3 border-indigo-200 dark:border-slate-700">Keunggulan TopPay</h2>
+                <h2 className="text-2xl font-extrabold text-indigo-700 dark:text-indigo-400 border-b pb-3 border-indigo-200 dark:border-slate-700">Keunggulan Sabycell</h2>
                 <ul className="space-y-4 text-sm text-slate-700 dark:text-slate-300">
                   <li className="flex gap-3"><span className="text-2xl text-indigo-600">🔒</span><div><span className="font-bold">Aman via WhatsApp.</span> Transaksi langsung dengan Admin.</div></li>
                   <li className="flex gap-3"><span className="text-2xl text-purple-600">💰</span><div><span className="font-bold">Harga Terbaik.</span> Harga jujur, terjangkau, dan transparan.</div></li>
@@ -462,12 +602,12 @@ export default function App() {
           <div>
             <div className="font-extrabold text-xl text-indigo-700 dark:text-indigo-400">Sabycell</div>
             <div className="text-sm text-slate-500 dark:text-slate-400 mt-1">Layanan Top-Up Terpercaya.</div>
-            <div className="text-xs text-slate-400 dark:text-slate-500 mt-3">© 2025 TopPay. Hak Cipta Dilindungi.</div>
+            <div className="text-xs text-slate-400 dark:text-slate-500 mt-3">© 2025 Sabycell.</div>
           </div>
 
           <div className="mt-6 md:mt-0 text-sm text-slate-500 dark:text-slate-400 space-y-2 md:text-right">
-            <a href="#" className="block hover:text-indigo-600 transition">Kebijakan Privasi</a>
-            <a href="#" className="block hover:text-indigo-600 transition">Syarat & Ketentuan</a>
+            <a href="#" className="block hover:text-indigo-600 transition">Amanah</a>
+            <a href="#" className="block hover:text-indigo-600 transition">Terpercaya</a>
             <a href={`https://api.whatsapp.com/send?phone=${YOUR_WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="block text-green-600 font-semibold hover:text-green-800 transition">Hubungi Admin ({YOUR_WHATSAPP_NUMBER})</a>
           </div>
         </div>
