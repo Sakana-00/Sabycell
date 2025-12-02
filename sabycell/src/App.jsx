@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import Card from './components/Card';
-import Testi from './components/Testi';
 import TransactionForm from "./components/TransactionForm";
 
-// --- Impor Aset Gambar ---
-// Pastikan gambar-gambar ini ada di dalam folder `src/assets/`
-// atau sesuaikan path-nya jika Anda menyimpannya di tempat lain di dalam `src`.
 import logoUrl from './assets/fafas.webp';
 import pulsaImg from './assets/pulsa2.webp';
 import dataImg from './assets/data.webp';
@@ -23,18 +19,10 @@ import mlbbImg from './assets/mlbb.webp';
 import pubgImg from './assets/pubg.webp';
 import genshinImg from './assets/genshin.webp';
 import ffImg from './assets/frefire.webp';
-import dahabuImg from './assets/dahabu.webp';
 import datagameImg from './assets/datagame.webp';
 import datasosmedImg from './assets/datasosmed.webp';
 
-
-
-// Data dan konstanta yang tidak berubah bisa diletakkan di luar komponen
-// (Ini adalah perbaikan dari saran sebelumnya, saya letakkan di sini agar lebih jelas)
-
-// Menggabungkan seluruh logika aplikasi ke dalam satu komponen utama bernama App
 export default function App() {
-  // States utama
   const [service, setService] = useState("pulsa");
   const [target, setTarget] = useState(null);
   const [phone, setPhone] = useState("");
@@ -42,13 +30,11 @@ export default function App() {
   const [selected, setSelected] = useState(null);
   const [packageType, setPackageType] = useState(null); // 'harian' atau 'bulanan'
   const [customAmount, setCustomAmount] = useState(""); // Untuk nominal e-money
-  const [note, setNote] = useState(""); // Menggantikan state email
+  const [note, setNote] = useState("");
   const [message, setMessage] = useState("");
 
-  // Nomor WA Anda dalam format internasional
   const YOUR_WHATSAPP_NUMBER = "6285117265708";
 
-  // Data Produk (Sama seperti sebelumnya)
   const allProducts = {
     pulsa: [
       // Telkomsel
@@ -152,22 +138,22 @@ export default function App() {
       { id: "di32", label: "10GB 30 HARI", price: 57000, target: "Indosat", type: "bulanan" },
 
       // XL/Axis
-      { id: "d12", label: "2GB + 500MB APPS 30 hari", price: 17000, target: "XL/Axis", type: "bulanan" },
-      { id: "d13", label: "3GB + 500MB APPS 30 hari", price: 25000, target: "XL/Axis", type: "bulanan" },
-      { id: "d14", label: "6GB 28 hari", price: 30000, target: "XL/Axis", type: "bulanan" },
-      { id: "d15", label: "10GB 28 hari", price: 36000, target: "XL/Axis", type: "bulanan" },
-      { id: "d16", label: "15GB 28 hari", price: 40000, target: "XL/Axis", type: "bulanan" },
-      { id: "d17", label: "20GB 28 hari", price: 50000, target: "XL/Axis", type: "bulanan" },
+      { id: "dxb1", label: "2GB + 500MB APPS 30 hari", price: 17000, target: "XL/Axis", type: "bulanan" },
+      { id: "dxb2", label: "3GB + 500MB APPS 30 hari", price: 25000, target: "XL/Axis", type: "bulanan" },
+      { id: "dxb3", label: "6GB 28 hari", price: 30000, target: "XL/Axis", type: "bulanan" },
+      { id: "dxb4", label: "10GB 28 hari", price: 36000, target: "XL/Axis", type: "bulanan" },
+      { id: "dxb5", label: "15GB 28 hari", price: 40000, target: "XL/Axis", type: "bulanan" },
+      { id: "dxb6", label: "20GB 28 hari", price: 50000, target: "XL/Axis", type: "bulanan" },
 
-      { id: "d3", label: "2GB-3GB 3 HARI", price: 11000, target: "XL/Axis", type: "harian" },
-      { id: "d4", label: "5GB-7GB 3 HARI", price: 15000, target: "XL/Axis", type: "harian" },
-      { id: "d5", label: "2.5GB-4GB 5 HARI", price: 14000, target: "XL/Axis", type: "harian" },
-      { id: "d6", label: "3.5GB-5.5GB 5 HARI", price: 16000, target: "XL/Axis", type: "harian" },
-      { id: "d7", label: "6GB-9GB 5 HARI", price: 20000, target: "XL/Axis", type: "harian" },
-      { id: "d8", label: "2.5GB-3.5GB 7 HARI", price: 15000, target: "XL/Axis", type: "harian" },
-      { id: "d9", label: "3.5GB-5GB 7 HARI", price: 18000, target: "XL/Axis", type: "harian" },
-      { id: "d10", label: "5GB-8GB 7 HARI", price: 22000, target: "XL/Axis", type: "harian" },
-      { id: "d10", label: "7GB-12GB 7 HARI", price: 27000, target: "XL/Axis", type: "harian" },
+      { id: "dxh1", label: "2GB-3GB 3 HARI", price: 11000, target: "XL/Axis", type: "harian" },
+      { id: "dxh2", label: "5GB-7GB 3 HARI", price: 15000, target: "XL/Axis", type: "harian" },
+      { id: "dxh3", label: "2.5GB-4GB 5 HARI", price: 14000, target: "XL/Axis", type: "harian" },
+      { id: "dxh4", label: "3.5GB-5.5GB 5 HARI", price: 16000, target: "XL/Axis", type: "harian" },
+      { id: "dxh5", label: "6GB-9GB 5 HARI", price: 20000, target: "XL/Axis", type: "harian" },
+      { id: "dxh6", label: "2.5GB-3.5GB 7 HARI", price: 15000, target: "XL/Axis", type: "harian" },
+      { id: "dxh7", label: "3.5GB-5GB 7 HARI", price: 18000, target: "XL/Axis", type: "harian" },
+      { id: "dxh8", label: "5GB-8GB 7 HARI", price: 22000, target: "XL/Axis", type: "harian" },
+      { id: "dxh9", label: "7GB-12GB 7 HARI", price: 27000, target: "XL/Axis", type: "harian" },
 
       { id: "dxg1", label: "1GB Game 30 Hari", price: 7000, target: "XL/Axis", type: "game" },
       { id: "dxg2", label: "2GB Game 30 Hari", price: 12000, target: "XL/Axis", type: "game" },
@@ -179,13 +165,13 @@ export default function App() {
       { id: "dxg8", label: "4GB Utama + 4GB Game 30 Hari", price: 42000, target: "XL/Axis", type: "game" },
 
       // Smartfren
-      { id: "d20", label: "1GB 3 HARI", price: 8000, target: "Smartfren", type: "harian" },
-      { id: "d21", label: "2GB 3 HARI", price: 10000, target: "Smartfren", type: "harian" },
-      { id: "d22", label: "3GB 5 HARI", price: 15000, target: "Smartfren", type: "harian" },
+      { id: "dsh1", label: "1GB 3 HARI", price: 8000, target: "Smartfren", type: "harian" },
+      { id: "dsh2", label: "2GB 3 HARI", price: 10000, target: "Smartfren", type: "harian" },
+      { id: "dsh3", label: "3GB 5 HARI", price: 15000, target: "Smartfren", type: "harian" },
 
-      { id: "d23", label: "DATA 3GB+4GB MLM+3GB CHAT 30 HARI", price: 22000, target: "Smartfren", type: "bulanan" },
-      { id: "d24", label: "DATA 6GB+10GB MLM+6GB CHAT 30 HARI", price: 28000, target: "Smartfren", type: "bulanan" },
-      { id: "d25", label: "DATA 10GB+20GB MLM 30 HARI", price: 70000, target: "Smartfren", type: "bulanan" },
+      { id: "dsb1", label: "DATA 3GB+4GB MLM+3GB CHAT 30 HARI", price: 22000, target: "Smartfren", type: "bulanan" },
+      { id: "dsb2", label: "DATA 6GB+10GB MLM+6GB CHAT 30 HARI", price: 28000, target: "Smartfren", type: "bulanan" },
+      { id: "dsb3", label: "DATA 10GB+20GB MLM 30 HARI", price: 70000, target: "Smartfren", type: "bulanan" },
 
       { id: "dtk1", label: "1.1GB Tiktok 1 HARI", price: 8000, target: "Smartfren", type: "media" },
       { id: "dtk2", label: "3.5GB Tiktok 3 HARI", price: 12000, target: "Smartfren", type: "media" },
@@ -199,20 +185,18 @@ export default function App() {
       // Dikosongkan karena akan menggunakan input nominal bebas
     ],
     games: [
-
-
       // MLBB
-      { id: "g1", label: "5 Diamond", price: 3500, target: "MLBB" },
-      { id: "g5", label: "28 Diamond", price: 9000, target: "MLBB" },
-      { id: "g8", label: "44 Diamond", price: 13000, target: "MLBB" },
-      { id: "g11", label: "82 Diamond", price: 25000, target: "MLBB" },
-      { id: "g12", label: "86 Diamond", price: 26000, target: "MLBB" },
-      { id: "g13", label: "170 Diamond", price: 52000, target: "MLBB" },
-      { id: "g18", label: "257 Diamond", price: 78000, target: "MLBB" },
-      { id: "g20", label: "344 Diamond", price: 105000, target: "MLBB" },
-      { id: "g24", label: "514 Diamond", price: 155000, target: "MLBB" },
-      { id: "g28", label: "706 Diamond", price: 210000, target: "MLBB" },
-      { id: "g29", label: "875 Diamond", price: 255000, target: "MLBB" },
+      { id: "gml1", label: "5 Diamond", price: 3500, target: "MLBB" },
+      { id: "gml2", label: "28 Diamond", price: 9000, target: "MLBB" },
+      { id: "gml3", label: "44 Diamond", price: 13000, target: "MLBB" },
+      { id: "gml4", label: "82 Diamond", price: 25000, target: "MLBB" },
+      { id: "gml5", label: "86 Diamond", price: 26000, target: "MLBB" },
+      { id: "gml6", label: "170 Diamond", price: 52000, target: "MLBB" },
+      { id: "gml7", label: "257 Diamond", price: 78000, target: "MLBB" },
+      { id: "gml8", label: "344 Diamond", price: 105000, target: "MLBB" },
+      { id: "gml9", label: "514 Diamond", price: 155000, target: "MLBB" },
+      { id: "gml10", label: "706 Diamond", price: 210000, target: "MLBB" },
+      { id: "gml11", label: "875 Diamond", price: 255000, target: "MLBB" },
 
       // Free Fire
       { id: "g34", label: "5 Diamond", price: 2000, target: "Free Fire" },
@@ -232,27 +216,28 @@ export default function App() {
       { id: "g48", label: "1440 Diamond", price: 187000, target: "Free Fire" },
 
       // Genshin Impact
-      { id: "g1", label: "60 Genesis Crystal", price: 14000, target: "Genshin Impact" },
-      { id: "g2", label: "330 Genesis Crystal", price: 62000, target: "Genshin Impact" },
-      { id: "g3", label: "1090 Genesis Crystal", price: 182000, target: "Genshin Impact" },
-      { id: "g4", label: "2240 Genesis Crystal", price: 390000, target: "Genshin Impact" },
-      { id: "g5", label: "3880 Genesis Crystal", price: 600000, target: "Genshin Impact" },
-      { id: "g6", label: "8080 Genesis Crystal", price: 1197000, target: "Genshin Impact" },
+      { id: "gg1", label: "60 Genesis Crystal", price: 14000, target: "Genshin Impact" },
+      { id: "gg2", label: "330 Genesis Crystal", price: 62000, target: "Genshin Impact" },
+      { id: "gg3", label: "1090 Genesis Crystal", price: 182000, target: "Genshin Impact" },
+      { id: "gg4", label: "2240 Genesis Crystal", price: 390000, target: "Genshin Impact" },
+      { id: "gg5", label: "3880 Genesis Crystal", price: 600000, target: "Genshin Impact" },
+      { id: "gg6", label: "8080 Genesis Crystal", price: 1197000, target: "Genshin Impact" },
 
-      { id: "p1", label: "60 UC", price: 18000, target: "PUBG" },
-      { id: "p2", label: "180 UC", price: 47000, target: "PUBG" },
-      { id: "p3", label: "325 UC", price: 77000, target: "PUBG" },
-      { id: "p4", label: "445 UC", price: 108000, target: "PUBG" },
-      { id: "p5", label: "660 UC", price: 150000, target: "PUBG" },
-      { id: "p6", label: "840 UC", price: 197000, target: "PUBG" },
-      { id: "p7", label: "1105 UC", price: 256000, target: "PUBG" },
-      { id: "p8", label: "1320 UC", price: 300000, target: "PUBG" },
-      { id: "p9", label: "1500 UC", price: 340000, target: "PUBG" },
-      { id: "p10", label: "1800 UC", price: 370000, target: "PUBG" },
-      { id: "p11", label: "1980 UC", price: 420000, target: "PUBG" },
-      { id: "p12", label: "2125 UC", price: 450000, target: "PUBG" },
-      { id: "p13", label: "2460 UC", price: 518000, target: "PUBG" },
-      { id: "p14", label: "2785 UC", price: 596000, target: "PUBG" },
+      // PUBG
+      { id: "gp1", label: "60 UC", price: 18000, target: "PUBG" },
+      { id: "gp2", label: "180 UC", price: 47000, target: "PUBG" },
+      { id: "gp3", label: "325 UC", price: 77000, target: "PUBG" },
+      { id: "gp4", label: "445 UC", price: 108000, target: "PUBG" },
+      { id: "gp5", label: "660 UC", price: 150000, target: "PUBG" },
+      { id: "gp6", label: "840 UC", price: 197000, target: "PUBG" },
+      { id: "gp7", label: "1105 UC", price: 256000, target: "PUBG" },
+      { id: "gp8", label: "1320 UC", price: 300000, target: "PUBG" },
+      { id: "gp9", label: "1500 UC", price: 340000, target: "PUBG" },
+      { id: "gp10", label: "1800 UC", price: 370000, target: "PUBG" },
+      { id: "gp11", label: "1980 UC", price: 420000, target: "PUBG" },
+      { id: "gp12", label: "2125 UC", price: 450000, target: "PUBG" },
+      { id: "gp13", label: "2460 UC", price: 518000, target: "PUBG" },
+      { id: "gp14", label: "2785 UC", price: 596000, target: "PUBG" },
     ],
   };
 
@@ -269,7 +254,6 @@ export default function App() {
     pubg: pubgImg,
     genshin: genshinImg,
     frefire: ffImg,
-    dahabu: dahabuImg,
     datagame: datagameImg,
     datasosmed: datasosmedImg,
   };
@@ -286,9 +270,6 @@ export default function App() {
     'DANA': danaImg, 'OVO': ovoImg, 'GoPay': gopayImg, 'ShopePay': shopepayImg,
     'MLBB': mlbbImg, 'PUBG': pubgImg, 'Genshin Impact': genshinImg, 'Free Fire': ffImg,
   };
-
-  // Catatan: Logika Dark Mode manual (isDarkMode state, toggleTheme, useEffect) telah dihapus.
-  // Aplikasi sekarang mengandalkan fitur 'dark:' bawaan Tailwind CSS yang otomatis mengikuti preferensi OS.
 
   function priceFormatted(p) {
     return p.toLocaleString("id-ID");
@@ -315,7 +296,7 @@ export default function App() {
     setTarget(null);
     setSelected(null);
     setPhone('');
-    setPackageType(null); // Ini sudah ada, saya pastikan tidak duplikat
+    setPackageType(null);
     setCustomAmount("");
     setOperator('');
   };
@@ -416,8 +397,6 @@ export default function App() {
     }, 500);
   }
 
-
-  // --- Render Sub-Menu / Target Selection ---
   const TargetSelectionGrid = () => (
     <div className="p-6 sm:p-8 rounded-2xl shadow-2xl bg-white dark:bg-slate-900 border-t-4 border-purple-500">
       <h2 className="text-xl font-extrabold text-purple-800 dark:text-purple-400 mb-2">
@@ -446,7 +425,6 @@ export default function App() {
     </div>
   );
 
-  // --- Render Sub-Menu / Package Type Selection (khusus untuk data) ---
   const PackageTypeSelectionGrid = () => (
     <div className="p-6 sm:p-8 rounded-2xl shadow-2xl bg-white dark:bg-slate-900 border-t-4 border-purple-500">
       <h2 className="text-xl font-extrabold text-purple-800 dark:text-purple-400 mb-2">
@@ -464,13 +442,13 @@ export default function App() {
         <Card
           title="Paket Harian"
           subtitle="Masa aktif singkat"
-          icon={dahabuImg}
+          icon={datasosmedImg}
           onClick={() => handlePackageTypeChange('harian')}
         />
         <Card
           title="Paket Bulanan"
           subtitle="Masa aktif 30 hari"
-          icon={dahabuImg}
+          icon={datasosmedImg}
           onClick={() => handlePackageTypeChange('bulanan')}
         />
         {target === 'XL/Axis' && (
@@ -494,10 +472,8 @@ export default function App() {
     </div>
   );
 
-  // Render utama
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900 text-slate-800 dark:text-slate-200 font-sans">
-      {/* Header */}
       <header className="sticky top-0 z-10 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm shadow-md dark:shadow-slate-800">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -516,8 +492,6 @@ export default function App() {
           </div>
 
           <nav className="flex items-center gap-4 text-sm">
-            {/* TOMBOL TOGGLE DARK MODE DENGAN LOGIKA MANUAL SUDAH DIHAPUS DARI SINI */}
-
             <a href="#" className="text-slate-600 dark:text-slate-400 hover:text-indigo-600 transition font-medium">Beranda</a>
             <a href={`https://api.whatsapp.com/send?phone=${YOUR_WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="ml-4 px-4 py-2 rounded-full bg-green-500 hover:bg-green-600 text-white text-sm transition shadow-lg shadow-green-500/30 font-bold">
               <i className="fab fa-whatsapp mr-1"></i> Chat Admin
@@ -528,7 +502,6 @@ export default function App() {
 
       <main className="max-w-6xl mx-auto px-4 py-8">
 
-        {/* Kategori Produk */}
         <section className="mb-12">
           <h3 className="text-2xl font-extrabold mb-6 text-center text-indigo-800 dark:text-indigo-400">Pilih Kategori Layanan</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
@@ -539,19 +512,16 @@ export default function App() {
           </div>
         </section>
 
-        {/* Transaction Flow */}
         <section className="grid lg:grid-cols-3 gap-8 py-4">
 
-          {/* Kolom Kiri: Target Selection / Transaction Form */}
-          {target === null ? ( // 1. Jika target (provider) belum dipilih
+          {target === null ? (
             <div className="lg:col-span-3">
               <TargetSelectionGrid />
             </div>
-          ) : service === 'data' && packageType === null ? ( // 2. Jika layanan adalah 'data' dan jenis paket belum dipilih
+          ) : service === 'data' && packageType === null ? (
             <div className="lg:col-span-3"><PackageTypeSelectionGrid /></div>
           ) : (
             <>
-              {/* Form Tampil jika Target sudah dipilih */}
               <TransactionForm
                 target={target}
                 service={service}
@@ -574,7 +544,6 @@ export default function App() {
                 priceFormatted={priceFormatted}
               />
 
-              {/* Keunggulan & Info - Kolom Kanan */}
               <div className="lg:col-span-1 p-6 sm:p-8 rounded-2xl shadow-2xl bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-slate-800 dark:to-slate-800 space-y-6 self-start">
                 <h2 className="text-2xl font-extrabold text-indigo-700 dark:text-indigo-400 border-b pb-3 border-indigo-200 dark:border-slate-700">Keunggulan Sabycell</h2>
                 <ul className="space-y-4 text-sm text-slate-700 dark:text-slate-300">
@@ -587,16 +556,8 @@ export default function App() {
           )}
         </section>
 
-        {/* Testimoni */}
-        <section className="py-12">
-          <h3 className="text-2xl font-extrabold mb-8 text-center text-indigo-800 dark:text-indigo-400">Ulasan Pelanggan</h3>
-          <div className="grid md:grid-cols-3 gap-6">
-            <Testi name="Sakana." text="Belum ada ulasan! jika anda ingin memberikan ulasan bisa chat atau kirim email ke admin ya termiakasih!" />
-          </div>
-        </section>
       </main>
 
-      {/* Footer */}
       <footer className="mt-12 py-8 border-t-4 border-indigo-200 dark:border-indigo-900 bg-white dark:bg-slate-900">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between max-w-6xl mx-auto px-4">
           <div>

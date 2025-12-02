@@ -22,7 +22,6 @@ export default function TransactionForm({
 }) {
     return (
         <form onSubmit={onBuy} className="lg:col-span-2 p-6 sm:p-8 rounded-2xl shadow-2xl bg-white dark:bg-slate-900 border-t-4 border-purple-500 space-y-6">
-            {/* Header Form */}
             <div className="flex justify-between items-start">
                 <div>
                     <h2 className="text-xl font-extrabold text-purple-800 dark:text-purple-400">
@@ -41,7 +40,6 @@ export default function TransactionForm({
                 </button>
             </div>
 
-            {/* Input Nomor/ID */}
             <div>
                 <label htmlFor="phone" className="block text-sm font-bold mb-2 text-slate-700 dark:text-slate-300">
                     {getLabelText()}
@@ -53,8 +51,8 @@ export default function TransactionForm({
                         name="phone"
                         className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition"
                         placeholder={getPlaceholderText()}
-                        value={phone} // Menampilkan nilai dari state 'phone'
-                        onChange={(e) => onPhoneChange(e.target.value)} // Memanggil fungsi onPhoneChange dengan nilai baru
+                        value={phone}
+                        onChange={(e) => onPhoneChange(e.target.value)}
                         required
                     />
                     {operator && (service === 'pulsa' || service === 'data') && (
@@ -65,10 +63,8 @@ export default function TransactionForm({
                 </div>
             </div>
 
-            {/* Bagian ini akan diganti */}
             <div>
                 {service === 'emoney' ? (
-                    // Tampilan KHUSUS untuk E-Money
                     <div>
                         <label htmlFor="custom-amount" className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">
                             Masukkan Nominal Top Up
@@ -93,7 +89,6 @@ export default function TransactionForm({
                         </p>
                     </div>
                 ) : (
-                    // Tampilan untuk layanan LAIN (Pulsa, Data, Games)
                     <div>
                         <h3 className="text-md font-bold mb-3 text-slate-700 dark:text-slate-300">Pilih Nominal:</h3>
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -115,7 +110,6 @@ export default function TransactionForm({
                 )}
             </div>
 
-            {/* Input Email (Opsional) */}
             <div>
                 <label htmlFor="note" className="block text-sm font-bold mb-2 text-slate-700 dark:text-slate-300">
                     Catatan untuk Admin (Opsional)
@@ -127,10 +121,9 @@ export default function TransactionForm({
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
                     className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition"
-                    placeholder="Contoh: Halo admin ganteng!!" />
+                    placeholder="Contoh: Kirim ke nomor kedua jika gagal" />
             </div>
 
-            {/* Tombol Beli & Pesan Error */}
             {message && <p className="text-sm text-center font-semibold text-red-500 bg-red-100 dark:bg-red-900/30 p-3 rounded-lg">{message}</p>}
             <button type="submit" className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:opacity-90 transition shadow-lg shadow-purple-500/30 disabled:opacity-50 disabled:cursor-not-allowed" disabled={(!selected && service !== 'emoney') || !phone}>
                 Beli Sekarang
