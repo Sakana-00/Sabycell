@@ -28,10 +28,10 @@ export default function App() {
   const [phone, setPhone] = useState("");
   const [operator, setOperator] = useState("");
   const [selected, setSelected] = useState(null);
-  const [packageType, setPackageType] = useState(null); // 'harian' atau 'bulanan'
-  const [customAmount, setCustomAmount] = useState(""); // Untuk nominal e-money
-  const [note, setNote] = useState("");
+  const [packageType, setPackageType] = useState(null);
+  const [customAmount, setCustomAmount] = useState("");
   const [message, setMessage] = useState("");
+  const [note, setNote] = useState("");
 
   const YOUR_WHATSAPP_NUMBER = "6285117265708";
 
@@ -182,7 +182,6 @@ export default function App() {
 
     ],
     emoney: [
-      // Dikosongkan karena akan menggunakan input nominal bebas
     ],
     games: [
       // MLBB
@@ -370,7 +369,7 @@ export default function App() {
     const itemDetail = finalSelected.label;
     const cost = priceFormatted(finalSelected.price);
 
-    let textMessage = `*PESANAN BARU VIA WEBSITE Sabycell*\n\n`;
+    let textMessage = `*PESANAN BARU VIA WEBSITE*\n\n`;
     textMessage += `Kategori: ${serviceName}\n`;
     textMessage += `Target: ${target}\n`;
     textMessage += `Produk: ${itemDetail} (Rp ${cost})\n`;
@@ -384,7 +383,7 @@ export default function App() {
     }
 
     textMessage += `\n*Total Harga: Rp ${cost}*\n`;
-    textMessage += `\nMohon diproses, Kak. Saya tunggu instruksi pembayarannya.`;
+    textMessage += `\nTerima kasih banyak sudah melakukan pemesanan. Pesanan Anda sedang kami proses. Mohon tunggu sebentar yaa 🙏`;
 
     const encodedMessage = encodeURIComponent(textMessage);
     const whatsappLink = `https://api.whatsapp.com/send?phone=${YOUR_WHATSAPP_NUMBER}&text=${encodedMessage}`;
@@ -398,7 +397,7 @@ export default function App() {
   }
 
   const TargetSelectionGrid = () => (
-    <div className="p-6 sm:p-8 rounded-2xl shadow-2xl bg-white dark:bg-slate-900 border-t-4 border-purple-500">
+    <div className="p-6 sm:p-8 rounded-2xl shadow-2xl bg-slate-50 dark:bg-slate-900 border-t-4 border-purple-500">
       <h2 className="text-xl font-extrabold text-purple-800 dark:text-purple-400 mb-2">
         <button
           onClick={() => handleServiceChange(service)}
@@ -426,7 +425,7 @@ export default function App() {
   );
 
   const PackageTypeSelectionGrid = () => (
-    <div className="p-6 sm:p-8 rounded-2xl shadow-2xl bg-white dark:bg-slate-900 border-t-4 border-purple-500">
+    <div className="p-6 sm:p-8 rounded-2xl shadow-2xl bg-slate-50 dark:bg-slate-900 border-t-4 border-purple-500">
       <h2 className="text-xl font-extrabold text-purple-800 dark:text-purple-400 mb-2">
         <button
           onClick={() => handleTargetChange(null)}
@@ -463,7 +462,7 @@ export default function App() {
         {target === 'Smartfren' && (
           <Card
             title="Kuota Sosmed"
-            subtitle="streaming Tiktok dan YouTube"
+            subtitle="Streaming Tiktok dan YouTube"
             icon={datasosmedImg}
             onClick={() => handlePackageTypeChange('media')}
           />
@@ -502,7 +501,7 @@ export default function App() {
 
       <main className="max-w-6xl mx-auto px-4 py-8">
 
-        <section className="mb-12">
+        <section className="mb-12 p-6 sm:p-8 rounded-2xl shadow-2xl bg-slate-50 dark:bg-slate-900 border-t-4 border-purple-500">
           <h3 className="text-2xl font-extrabold mb-6 text-center text-indigo-800 dark:text-indigo-400">Pilih Kategori Layanan</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <Card title="Pulsa" subtitle="Isi ulang Pulsa" icon={serviceImageUrls.pulsa} onClick={() => handleServiceChange('pulsa')} isActive={service === 'pulsa'} />
@@ -549,7 +548,7 @@ export default function App() {
                 <ul className="space-y-4 text-sm text-slate-700 dark:text-slate-300">
                   <li className="flex gap-3"><span className="text-2xl text-indigo-600">🔒</span><div><span className="font-bold">Aman via WhatsApp.</span> Transaksi langsung dengan Admin.</div></li>
                   <li className="flex gap-3"><span className="text-2xl text-purple-600">💰</span><div><span className="font-bold">Harga Terbaik.</span> Harga jujur, terjangkau, dan transparan.</div></li>
-                  <li className="flex gap-3"><span className="text-2xl text-yellow-600">💳</span><div><span className="font-bold">Banyak Metode Bayar.</span> Tersedia QRIS, E-Wallet.</div></li>
+                  <li className="flex gap-3"><span className="text-2xl text-yellow-600">💳</span><div><span className="font-bold">Banyak Metode Bayar.</span> Tersedia QRIS, E-Wallet, Paylater, Cash.</div></li>
                 </ul>
               </div>
             </>

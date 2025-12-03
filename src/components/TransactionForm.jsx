@@ -11,8 +11,8 @@ export default function TransactionForm({
     currentProducts,
     onBuy,
     onPhoneChange,
-    customAmount,      // Prop baru
-    setCustomAmount,   // Prop baru
+    customAmount,
+    setCustomAmount,
     setNote,
     setSelected,
     setTarget,
@@ -121,7 +121,7 @@ export default function TransactionForm({
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
                     className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition"
-                    placeholder="Contoh: Kirim ke nomor kedua jika gagal" />
+                    placeholder="Contoh: Halo admin ganteng!!" />
             </div>
 
             {message && <p className="text-sm text-center font-semibold text-red-500 bg-red-100 dark:bg-red-900/30 p-3 rounded-lg">{message}</p>}
