@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Card from './components/Card';
 import TransactionForm from "./components/TransactionForm";
 
-import logoUrl from './assets/fafas.webp';
+import logoImg from './assets/fafas.webp';
 import pulsaImg from './assets/pulsa2.webp';
 import dataImg from './assets/data.webp';
 import emoneyImg from './assets/emoney.webp';
@@ -241,6 +241,7 @@ export default function App() {
   };
 
   const serviceImageUrls = {
+    logo: logoImg,
     pulsa: pulsaImg,
     data: dataImg,
     emoney: emoneyImg,
