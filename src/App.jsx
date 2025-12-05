@@ -479,7 +479,7 @@ export default function App() {
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-700 flex items-center justify-center shadow-lg overflow-hidden">
               <img
-                src={logoUrl}
+                src={logoImg}
                 alt="Sabycell Logo"
                 className="w-full h-full object-contain"
                 onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/40x40/4F46E5/FFFFFF?text=TP'; }}
